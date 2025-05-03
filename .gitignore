@@ -398,3 +398,4 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/TPWeb_equipo-8a/dominio/Class1.cs
