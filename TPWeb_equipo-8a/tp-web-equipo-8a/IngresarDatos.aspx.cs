@@ -11,9 +11,12 @@ namespace tp_web_equipo_8a
 {
 	public partial class IngresarDatos : System.Web.UI.Page
 	{
-		protected void Page_Load(object sender, EventArgs e)
-		{
 
+        public bool dni { get; set; }
+
+        protected void Page_Load(object sender, EventArgs e)
+		{
+            dni = false;
 		}
 
         protected void btnParticipar_Click(object sender, EventArgs e)
@@ -31,10 +34,46 @@ namespace tp_web_equipo_8a
             clienteNegocio.agregar(cliente);
         }
 
-
         private string EliminarPuntos(string dni)
         {
             return dni.Replace(".", "");
         }
+
+
+
+
+
+        protected void btnBuscarDni_Click(object sender, EventArgs e)
+        {
+            ClienteNegocio clienteNegocio = new ClienteNegocio();
+            Clientes cliente = clienteNegocio.ChequearDNI(Convert.ToInt32(EliminarPuntos(txtDNI.Text)));
+
+            if (cliente != null)
+            {
+                txtDNI.Text = cliente.Documento;
+                txtNombre.Text = cliente.Nombre;
+                txtApellido.Text = cliente.Apellido;
+                txtEmail.Text = cliente.Email;
+                txtDireccion.Text = cliente.Direccion;
+                txtCiudad.Text = cliente.Ciudad;
+                txtCp.Text = cliente.CP.ToString();
+            }
+
+            dni = true;
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

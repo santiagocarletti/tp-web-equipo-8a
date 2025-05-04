@@ -37,5 +37,42 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+
+        public Clientes ChequearDNI(int dni)
+        {
+            AccesoBD datos = new AccesoBD();
+            try
+            {
+                datos.setearConsulta("SELECT * FROM CLIENTES WHERE Documento = @dni");
+                datos.setearParametro("@dni", dni);
+                datos.ejecutarLectura();
+
+                if (datos.Lectorbd.Read())
+                {
+                    Clientes cliente = new Clientes();
+                    cliente.Documento = Convert.ToString(datos.Lectorbd["Documento"]);
+                    cliente.Nombre = Convert.ToString(datos.Lectorbd["Nombre"]);
+                    cliente.Apellido = Convert.ToString(datos.Lectorbd["Apellido"]);
+                    cliente.Email = Convert.ToString(datos.Lectorbd["Email"]);
+                    cliente.Direccion = Convert.ToString(datos.Lectorbd["Direccion"]);
+                    cliente.Ciudad = datos.Lectorbd["Ciudad"].ToString();
+                    cliente.CP = Convert.ToInt32(datos.Lectorbd["CP"]);
+                    return cliente;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
     }
 }
