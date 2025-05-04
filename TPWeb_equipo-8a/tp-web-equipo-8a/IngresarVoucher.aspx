@@ -21,8 +21,7 @@
         <div class="col-md-6">
          
           <label for="voucherInput" class="form-label">Ingresá el código de tu voucher!</label>
-          <asp:TextBox ID="voucherInput" runat="server" CssClass="form-control"
-                         placeholder="XXXXXXXXXXXXXXXXXX" />
+          <asp:TextBox ID="voucherInput" runat="server" CssClass="form-control"  placeholder="XXXXXXXXXXXXXXXXXX" />
           
           <asp:Button ID="btnSiguiente" runat="server" Text="Siguiente" 
                       CssClass="btn btn-primary w-100 mt-3" />
