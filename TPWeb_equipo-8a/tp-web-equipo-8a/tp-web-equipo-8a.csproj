@@ -88,6 +88,7 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Global.asax" />
+    <Content Include="IngresarDatos.aspx" />
     <Content Include="IngresarVoucher.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -101,6 +102,13 @@
   <ItemGroup>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="IngresarDatos.aspx.cs">
+      <DependentUpon>IngresarDatos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="IngresarDatos.aspx.designer.cs">
+      <DependentUpon>IngresarDatos.aspx</DependentUpon>
     </Compile>
     <Compile Include="IngresarVoucher.aspx.cs">
       <DependentUpon>IngresarVoucher.aspx</DependentUpon>
