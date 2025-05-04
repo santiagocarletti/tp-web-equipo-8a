@@ -45,6 +45,12 @@ namespace tp_web_equipo_8a
 
         protected void btnBuscarDni_Click(object sender, EventArgs e)
         {
+            if (txtDNI.Enabled == false)
+            {
+                Response.Redirect("IngresarDatos.aspx");
+                return;
+            }
+
             ClienteNegocio clienteNegocio = new ClienteNegocio();
             Clientes cliente = clienteNegocio.ChequearDNI(Convert.ToInt32(EliminarPuntos(txtDNI.Text)));
 
@@ -57,10 +63,19 @@ namespace tp_web_equipo_8a
                 txtDireccion.Text = cliente.Direccion;
                 txtCiudad.Text = cliente.Ciudad;
                 txtCp.Text = cliente.CP.ToString();
+
+                txtNombre.Enabled = false;
+                txtApellido.Enabled = false;
+                txtEmail.Enabled = false;
+                txtDireccion.Enabled = false;
+                txtCiudad.Enabled = false;
+                txtCp.Enabled = false;
+                dni = true;
             }
 
+            btnBuscarDNI.Text = "Cambiar";
             dni = true;
-
+            txtDNI.Enabled = false;
         }
 
 

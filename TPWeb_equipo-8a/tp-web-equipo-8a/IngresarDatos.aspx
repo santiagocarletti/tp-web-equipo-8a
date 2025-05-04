@@ -39,13 +39,22 @@
                     <div class="mb-3 row">
                         <div class="col-md-8">
                             <label for="txtDNI" class="form-label">DNI</label>
+                            <asp:RequiredFieldValidator 
+                                ControlToValidate="txtDNI"
+                                ErrorMessage="El DNI no puede estar en blanco"
+                                runat="server"
+                                ForeColor="Red"
+                                Display="Dynamic"
+                                ValidationGroup="GrupoDNI"/>
+
                             <asp:RegularExpressionValidator
                                 ControlToValidate="txtDNI"
                                 ErrorMessage=" Campo Inválido"
                                 runat="server"
                                 ValidationExpression="^[0-9.]+$"
                                 ForeColor="Red"
-                                Display="Dynamic" />
+                                Display="Dynamic"
+                                ValidationGroup="GrupoDNI"/>
                             <asp:TextBox ID="txtDNI" runat="server" CssClass="form-control" placeholder="DNI" type="text" required="1"/>
                         </div>
                         <div class="col-md-4 d-flex align-items-end">
@@ -55,7 +64,9 @@
                                 Text="Continuar" 
                                 CssClass="btn btn-outline-primary w-100" 
                                 style="height: 38px; margin-top: 8px;" 
-                                OnClick="btnBuscarDni_Click"                                
+                                ValidationGroup="GrupoDNI"
+                                OnClick="btnBuscarDni_Click"
+                                OnClientClick="this.form.noValidate = true;" 
                                 />
                         </div>
                     </div>
@@ -139,9 +150,10 @@
                             ControlToValidate="txtCp"
                             ErrorMessage=" Campo Inválido"
                             runat="server"
-                            ValidationExpression="^[1-9]+$"
+                            ValidationExpression="^[0-9]+$"
                             ForeColor="Red"
-                            Display="Dynamic" />
+                            Display="Dynamic"
+                            ValidationGroup="registro"/>
                         <asp:TextBox ID="txtCp" runat="server" CssClass="form-control" placeholder="Código Postal" required="1" />
                     </div>
 
@@ -159,9 +171,7 @@
                         OnClientClick="return validarCheckbox();"
                         OnClick="btnParticipar_Click"
                         CausesValidation="true" />
-
                         <%}%>
-
                 </div>
             </div>
         </div>
