@@ -65,7 +65,7 @@
       <label class="form-check-label" for="checkbox">Acepto los términos y condiciones.</label>
     </div>
 
-      <asp:Button ID="btnParticipar" runat="server" Text="Participar" CssClass="btn btn-primary w-100" />
+      <asp:Button ID="btnParticipar" runat="server" Text="Participar" CssClass="btn btn-primary w-100" OnClick="btnParticipar_Click" />
     </div>
   </div>
 </div>    </form>
