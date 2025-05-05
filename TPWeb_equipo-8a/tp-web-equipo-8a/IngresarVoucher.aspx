@@ -23,8 +23,9 @@
           <label for="voucherInput" class="form-label">Ingresá el código de tu voucher!</label>
           <asp:TextBox ID="voucherInput" runat="server" CssClass="form-control"  placeholder="XXXXXXXXXXXXXXXXXX" />
           
-          <asp:Button ID="btnSiguiente" runat="server" Text="Siguiente" 
-                      CssClass="btn btn-primary w-100 mt-3" />
+        <asp:Button  ID="btnSiguiente"  runat="server"  Text="Siguiente" CssClass="btn btn-primary w-100 mt-3" OnClick="btnSiguiente_Click" />
+
+             <asp:Label   ID="lblMessage"  runat="server"  CssClass="text-danger mt-2" />
         </div>
       </div>
     </div>

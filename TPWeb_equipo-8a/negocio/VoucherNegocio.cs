@@ -37,5 +37,43 @@ namespace negocio
                 accesoBD.cerrarConexion();
             }
         }
+
+        public Vouchers ObtenerPorCodigo(string codigoVoucher)
+        {
+            AccesoBD datos = new AccesoBD();
+            Vouchers voucher = null;
+            try
+            {
+                datos.setearConsulta(
+                    "SELECT CodigoVoucher, IdCliente, FechaCanje, IdArticulo " +
+                    "FROM Vouchers " +
+                    "WHERE CodigoVoucher = @codigoVoucher"
+                );
+                datos.setearParametro("@codigoVoucher", codigoVoucher);
+                datos.ejecutarLectura();
+                if (datos.Lectorbd.Read())
+                {
+                    voucher = new Vouchers();
+                    voucher.CodigoVoucher = Convert.ToString(datos.Lectorbd["CodigoVoucher"]);
+                    voucher.IdCliente = Convert.ToInt32(datos.Lectorbd["IdCliente"]);
+                    voucher.FechaCanje = Convert.ToDateTime(datos.Lectorbd["FechaCanje"]);
+                    voucher.IdArticulo = Convert.ToInt32(datos.Lectorbd["IdArticulo"]);
+                }
+                return voucher;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+        
+
+
     }
+
+
 }
