@@ -17,31 +17,46 @@ namespace tp_web_equipo_8a
         protected void Page_Load(object sender, EventArgs e)
 		{
             dni = false;
-		}
+        }
 
         protected void btnParticipar_Click(object sender, EventArgs e)
         {
-            Clientes cliente = new Clientes();
-            cliente.Documento = EliminarPuntos(txtDNI.Text);
-            cliente.Nombre = txtNombre.Text;
-            cliente.Apellido = txtApellido.Text;
-            cliente.Email = txtEmail.Text;
-            cliente.Direccion = txtDireccion.Text;
-            cliente.Ciudad = txtCiudad.Text;
-            cliente.CP = int.Parse(txtCp.Text);
-
             ClienteNegocio clienteNegocio = new ClienteNegocio();
-            clienteNegocio.agregar(cliente);
+            Clientes cliente = clienteNegocio.ChequearDNI(Convert.ToInt32(EliminarPuntos(txtDNI.Text)));
+
+            if (cliente == null)
+            {
+                cliente = new Clientes();
+                cliente.Documento = EliminarPuntos(txtDNI.Text);
+                cliente.Nombre = txtNombre.Text;
+                cliente.Apellido = txtApellido.Text;
+                cliente.Email = txtEmail.Text;
+                cliente.Direccion = txtDireccion.Text;
+                cliente.Ciudad = txtCiudad.Text;
+                cliente.CP = int.Parse(txtCp.Text);
+
+                //si es nuevo lo agregamos a la BD
+                clienteNegocio = new ClienteNegocio();
+                cliente.Id = clienteNegocio.agregar(cliente);
+            }
+
+            if (Session["voucherId"] == null || Request.QueryString["idArticulo"] == null)
+            {
+                Session.Add("error", "Error, intente nuevamente");
+                Response.Redirect("Error.aspx");
+                return;
+            }
+
+            Vouchers voucher = new Vouchers();
+            voucher.CodigoVoucher = Session["voucherId"].ToString();
+            voucher.IdCliente = cliente.Id;
+            voucher.FechaCanje = DateTime.Now;
+            voucher.IdArticulo = int.Parse(Request.QueryString["idArticulo"].ToString());
+
+            VoucherNegocio voucherNegocio = new VoucherNegocio();
+            voucherNegocio.canjear(voucher);
+
         }
-
-        private string EliminarPuntos(string dni)
-        {
-            return dni.Replace(".", "");
-        }
-
-
-
-
 
         protected void btnBuscarDni_Click(object sender, EventArgs e)
         {
@@ -78,16 +93,10 @@ namespace tp_web_equipo_8a
             txtDNI.Enabled = false;
         }
 
-
-
-
-
-
-
-
-
-
-
+        private string EliminarPuntos(string dni)
+        {
+            return dni.Replace(".", "");
+        }
 
 
     }

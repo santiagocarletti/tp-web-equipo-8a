@@ -9,13 +9,14 @@ namespace negocio
 {
     public class ClienteNegocio
     {
-        public void agregar(Clientes cliente)
+        public int agregar(Clientes cliente)
         {
             AccesoBD datos = new AccesoBD();
             try
             {
                 datos.setearConsulta("INSERT INTO CLIENTES (Documento, Nombre, Apellido, Email, Direccion, Ciudad, CP) " +
-                                     "VALUES (@dni, @nombre, @apellido, @email, @direccion, @ciudad, @cp)"
+                                     "VALUES (@dni, @nombre, @apellido, @email, @direccion, @ciudad, @cp)" +
+                                     "SELECT SCOPE_IDENTITY();"
                                     );
 
                 datos.setearParametro("@dni", cliente.Documento);
@@ -26,7 +27,8 @@ namespace negocio
                 datos.setearParametro("@ciudad", cliente.Ciudad);
                 datos.setearParametro("@cp", cliente.CP);
 
-                datos.ejecutarAccion();
+                int idNuevoCliente = datos.ejecutarAccionconreturn();
+                return idNuevoCliente;
             }
             catch (Exception ex)
             {
@@ -50,6 +52,7 @@ namespace negocio
                 if (datos.Lectorbd.Read())
                 {
                     Clientes cliente = new Clientes();
+                    cliente.Id = Convert.ToInt32(datos.Lectorbd["Id"]);
                     cliente.Documento = Convert.ToString(datos.Lectorbd["Documento"]);
                     cliente.Nombre = Convert.ToString(datos.Lectorbd["Nombre"]);
                     cliente.Apellido = Convert.ToString(datos.Lectorbd["Apellido"]);
