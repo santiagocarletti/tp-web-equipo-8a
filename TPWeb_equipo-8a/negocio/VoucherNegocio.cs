@@ -47,30 +47,30 @@ namespace negocio
                 datos.setearConsulta(
                     "SELECT CodigoVoucher, IdCliente, FechaCanje, IdArticulo " +
                     "FROM Vouchers " +
-                    "WHERE CodigoVoucher = @codigoVoucher"
+                    "WHERE CodigoVoucher = @CodigoVoucher"
                 );
-                datos.setearParametro("@codigoVoucher", codigoVoucher);
+                datos.setearParametro("@CodigoVoucher", codigoVoucher);
                 datos.ejecutarLectura();
                 if (datos.Lectorbd.Read())
                 {
                     voucher = new Vouchers();
-                    voucher.CodigoVoucher = Convert.ToString(datos.Lectorbd["CodigoVoucher"]);
-                    voucher.IdCliente = Convert.ToInt32(datos.Lectorbd["IdCliente"]);
-                    voucher.FechaCanje = Convert.ToDateTime(datos.Lectorbd["FechaCanje"]);
-                    voucher.IdArticulo = Convert.ToInt32(datos.Lectorbd["IdArticulo"]);
+                    voucher.CodigoVoucher = datos.Lectorbd["CodigoVoucher"].ToString();
+                    voucher.IdCliente = datos.Lectorbd["IdCliente"] != DBNull.Value? Convert.ToInt32(datos.Lectorbd["IdCliente"]) : 0;  
+                    voucher.FechaCanje = datos.Lectorbd["FechaCanje"] != DBNull.Value ? Convert.ToDateTime(datos.Lectorbd["FechaCanje"]): DateTime.MinValue; 
+                    voucher.IdArticulo = datos.Lectorbd["IdArticulo"] != DBNull.Value ? Convert.ToInt32(datos.Lectorbd["IdArticulo"]): 0;
                 }
                 return voucher;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
             finally
             {
                 datos.cerrarConexion();
             }
         }
-        
+
 
 
     }
