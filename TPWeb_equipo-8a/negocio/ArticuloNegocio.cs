@@ -462,6 +462,41 @@ namespace negocio
             }
 
         }
+        //Para elegirPremio
+        public List<Articulo> listarArticulosConImagen()
+        {
+            List<Articulo> lista = new List<Articulo>();
+            AccesoBD datos = new AccesoBD();
+
+            try
+            {
+                datos.setearConsulta("SELECT A.Nombre, A.Descripcion, MIN(I.ImagenUrl) AS ImagenUrl " +
+                                     "FROM ARTICULOS A " +
+                                     "INNER JOIN IMAGENES I ON I.IdArticulo = A.Id " +
+                                     "GROUP BY A.Nombre, A.Descripcion");
+                datos.ejecutarLectura();
+
+                while (datos.Lectorbd.Read())
+                {
+                    Articulo aux = new Articulo();
+                    aux.Nombre = Convert.ToString(datos.Lectorbd["Nombre"]);
+                    aux.Descripcion = Convert.ToString(datos.Lectorbd["Descripcion"]);
+                    aux.Imagen = new List<string> { Convert.ToString(datos.Lectorbd["ImagenUrl"]) };
+                    lista.Add(aux);
+                }
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
     }
 
 }
