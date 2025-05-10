@@ -470,23 +470,37 @@ namespace negocio
 
             try
             {
-               
                 datos.setearConsulta(
-                    "SELECT A.Id, A.Nombre, A.Descripcion, MIN(I.ImagenUrl) AS ImagenUrl " +
+                    "SELECT A.Id, A.Nombre, A.Descripcion, I.ImagenUrl " +
                     "FROM ARTICULOS A " +
-                    "INNER JOIN IMAGENES I ON I.IdArticulo = A.Id " +
-                    "GROUP BY A.Id, A.Nombre, A.Descripcion"
+                    "LEFT JOIN IMAGENES I ON I.IdArticulo = A.Id " +
+                    "ORDER BY A.Id, I.ImagenUrl"
                 );
                 datos.ejecutarLectura();
 
+
+
+                Articulo ultCarga = null;
+
                 while (datos.Lectorbd.Read())
                 {
+                    int idArtBD = Convert.ToInt32(datos.Lectorbd["Id"]);
+
+                    if (ultCarga != null && ultCarga.Id == idArtBD)
+                    {
+                        string imagenUrl = Convert.ToString(datos.Lectorbd["ImagenUrl"]);
+                        ultCarga.Imagen.Add(imagenUrl);
+                        continue;
+                    }
+
                     Articulo aux = new Articulo();
                     aux.Id = Convert.ToInt32(datos.Lectorbd["Id"]);
                     aux.Nombre = Convert.ToString(datos.Lectorbd["Nombre"]);
                     aux.Descripcion = Convert.ToString(datos.Lectorbd["Descripcion"]);
                     aux.Imagen = new List<string> { Convert.ToString(datos.Lectorbd["ImagenUrl"]) };
                     lista.Add(aux);
+
+                    ultCarga = aux;
                 }
 
                 return lista;
