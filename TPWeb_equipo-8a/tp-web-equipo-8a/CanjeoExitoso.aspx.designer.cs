@@ -11,7 +11,7 @@ namespace tp_web_equipo_8a
 {
 
 
-    public partial class VoucherError
+    public partial class CanjeoExitoso
     {
 
         /// <summary>
@@ -24,13 +24,13 @@ namespace tp_web_equipo_8a
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// Control lblMensajeError.
+        /// Control lblMensaje.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMensajeError;
+        protected global::System.Web.UI.WebControls.Label lblMensaje;
 
         /// <summary>
         /// Control btnInicio.

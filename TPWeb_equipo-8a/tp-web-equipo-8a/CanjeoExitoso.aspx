@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="VoucherError.aspx.cs" Inherits="tp_web_equipo_8a.VoucherError" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CanjeoExitoso.aspx.cs" Inherits="tp_web_equipo_8a.CanjeoExitoso" %>
 
 <!DOCTYPE html>
 
@@ -11,9 +11,16 @@
 </head>
 <body>
     <form id="form1" runat="server">
+
+            <nav class="navbar navbar-dark bg-dark">
+      <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1">Promo Ganá!</span>
+      </div>
+    </nav>
+
         <div class="container mt-5 text-center">
-            <div class="alert alert-danger" role="alert">
-                <asp:Label ID="lblMensajeError" runat="server" Text="El código ingresado no es válido o ya ha sido utilizado." />
+                <div class="alert alert-success" role="alert">
+                <asp:Label ID="lblMensaje" runat="server" Text="El código fue canjeado exitosamente" />
             </div>
             <asp:Button ID="btnInicio" runat="server" Text="Volver al inicio" CssClass="btn btn-primary" OnClick="btnInicio_Click" />
         </div>

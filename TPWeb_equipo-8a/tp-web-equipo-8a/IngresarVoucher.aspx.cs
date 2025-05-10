@@ -24,26 +24,36 @@ namespace tp_web_equipo_8a
                 return;
             }
 
-            
-            VoucherNegocio negocioVoucher = new VoucherNegocio();
-            Vouchers voucher = negocioVoucher.ObtenerPorCodigo(codigoVoucher);
-
-            
-            if (voucher == null || voucher.IdCliente > 0)
+            try
             {
-                Response.Redirect("VoucherError.aspx");
-                return;
+                VoucherNegocio negocioVoucher = new VoucherNegocio();
+                Vouchers voucher = negocioVoucher.ObtenerPorCodigo(codigoVoucher);
+
+                if (voucher == null)
+                {
+                    Session.Add("error", "El Voucher Ingresado es inválido");
+                    Response.Redirect("Error.aspx", false);
+                    return;
+                }
+
+                if (voucher.IdCliente > 0)
+                {
+                    Session.Add("error", "El Voucher Ingresado ya ha sido canjeado por otro usuario el dia " + voucher.FechaCanje.ToShortDateString());
+                    Response.Redirect("Error.aspx", false);
+                    return;
+                }
+
+                voucher.FechaCanje = DateTime.Now;
+                Session["VoucherActivo"] = voucher;
+                Response.Redirect("SeleccionarPremio.aspx", false);
+
             }
-
-          
-            voucher.FechaCanje = DateTime.Now;
-
-            
-            Session["VoucherActivo"] = voucher;
-            Session["voucherId"] = voucher.CodigoVoucher;
-
-           
-            Response.Redirect("SeleccionarPremio.aspx");
+            catch (Exception ex)
+            {
+                Session.Add("error", ex);
+                Response.Redirect("Error.aspx");
+                throw;
+            }
         }
     }
 }

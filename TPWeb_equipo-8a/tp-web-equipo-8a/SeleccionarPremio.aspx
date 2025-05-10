@@ -40,7 +40,6 @@
             <div class="card-body">
               <h5 class="card-title"><%= articulo.Nombre %></h5>
               <p class="card-text"><%= articulo.Descripcion %></p>
-            
               <a href='IngresarDatos.aspx?idArticulo=<%= articulo.Id %>' class="btn btn-primary">Elegir</a>
             </div>
           </div>

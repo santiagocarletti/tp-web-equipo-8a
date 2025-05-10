@@ -25,12 +25,12 @@ namespace negocio
                 accesoBD.setearParametro("@idCliente", voucher.IdCliente);
                 accesoBD.setearParametro("@fecha", voucher.FechaCanje);
                 accesoBD.setearParametro("@IdArticulo", voucher.IdArticulo);
-
+                accesoBD.setearParametro("@codigoVoucher", voucher.CodigoVoucher);
                 accesoBD.ejecutarAccion();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
             finally
             {

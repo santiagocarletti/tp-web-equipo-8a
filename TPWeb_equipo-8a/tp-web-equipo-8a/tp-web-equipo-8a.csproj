@@ -71,6 +71,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CanjeoExitoso.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -98,10 +99,16 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="SeleccionarPremio.aspx" />
-    <Content Include="VoucherError.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CanjeoExitoso.aspx.cs">
+      <DependentUpon>CanjeoExitoso.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CanjeoExitoso.aspx.designer.cs">
+      <DependentUpon>CanjeoExitoso.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Error.aspx.cs">
       <DependentUpon>Error.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -133,13 +140,6 @@
     </Compile>
     <Compile Include="SeleccionarPremio.aspx.designer.cs">
       <DependentUpon>SeleccionarPremio.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="VoucherError.aspx.cs">
-      <DependentUpon>VoucherError.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="VoucherError.aspx.designer.cs">
-      <DependentUpon>VoucherError.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

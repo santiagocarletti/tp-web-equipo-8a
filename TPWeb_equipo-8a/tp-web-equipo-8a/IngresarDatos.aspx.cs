@@ -16,7 +16,17 @@ namespace tp_web_equipo_8a
 
         protected void Page_Load(object sender, EventArgs e)
 		{
+            if (!IsPostBack)
+            {
+                if (Session["VoucherActivo"] == null)
+                {
+                    Response.Redirect("IngresarVoucher.aspx", false);
+                }
+            }
+            
+            
             dni = false;
+
         }
 
         protected void btnParticipar_Click(object sender, EventArgs e)
@@ -40,29 +50,42 @@ namespace tp_web_equipo_8a
                 cliente.Id = clienteNegocio.agregar(cliente);
             }
 
-            if (Session["voucherId"] == null || Request.QueryString["idArticulo"] == null)
+            if (Session["VoucherActivo"] == null || Request.QueryString["idArticulo"] == null)
             {
-                Session.Add("error", "Error, intente nuevamente");
-                Response.Redirect("Error.aspx");
+                Session.Add("error", "Hubo un Error, intente nuevamente");
+                Response.Redirect("Error.aspx", false);
+                Session.Clear();
                 return;
             }
 
             Vouchers voucher = new Vouchers();
-            voucher.CodigoVoucher = Session["voucherId"].ToString();
+            voucher = (Vouchers)Session["VoucherActivo"];
             voucher.IdCliente = cliente.Id;
             voucher.FechaCanje = DateTime.Now;
             voucher.IdArticulo = int.Parse(Request.QueryString["idArticulo"].ToString());
 
             VoucherNegocio voucherNegocio = new VoucherNegocio();
-            voucherNegocio.canjear(voucher);
+            try
+            {
+                voucherNegocio.canjear(voucher);
+                Response.Redirect("CanjeoExitoso.aspx", false);
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex);
+                Response.Redirect("Error.aspx", false);
+                throw;
+            }
+            
 
+            
         }
 
         protected void btnBuscarDni_Click(object sender, EventArgs e)
         {
             if (txtDNI.Enabled == false)
             {
-                Response.Redirect("IngresarDatos.aspx");
+                Response.Redirect("IngresarDatos.aspx", false);
                 return;
             }
 
