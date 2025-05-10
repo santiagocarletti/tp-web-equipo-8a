@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>Seleccionar Premio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <style>
@@ -33,7 +33,7 @@
                     var articulos = new negocio.ArticuloNegocio().listarArticulosConImagen();
                     int i = 0;
                     foreach (var articulo in articulos) 
-                    { 
+                    {  
                 %>
                     <div class="col-md-4 mb-4">
                         <div class="card card-custom text-center">
@@ -41,6 +41,14 @@
                             <div class="card-body">
                                 <h5 class="card-title"><%= articulo.Nombre %></h5>
                                 <p class="card-text"><%= articulo.Descripcion %></p>
+                            
+                                <asp:Button 
+                                    ID="Button1" 
+                                    runat="server" 
+                                    Text="Elegir" 
+                                    CssClass="btn btn-primary"
+                                    OnClick="SeleccionarPremio_Click"
+                                    CommandArgument="<%= articulo.Id %>" />
                             </div>
                         </div>
                     </div>
