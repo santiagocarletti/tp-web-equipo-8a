@@ -75,10 +75,7 @@ namespace tp_web_equipo_8a
                 Session.Add("error", ex);
                 Response.Redirect("Error.aspx", false);
                 throw;
-            }
-            
-
-            
+            }           
         }
 
         protected void btnBuscarDni_Click(object sender, EventArgs e)

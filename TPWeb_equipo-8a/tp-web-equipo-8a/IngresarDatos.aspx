@@ -11,6 +11,13 @@
 
 <script>
     function validarCheckbox() {
+        // esto para valida los asp priimero
+        if (typeof (Page_ClientValidate) == 'function') {
+            if (!Page_ClientValidate('registro')) {
+                return false;
+            }
+        }
+
         var checkbox = document.getElementById('checkbox');
         var errorSpan = document.getElementById('checkboxError');
 
@@ -18,6 +25,7 @@
             errorSpan.style.display = 'inline';
             return false;
         }
+
         errorSpan.style.display = 'none';
         return true;
     }
